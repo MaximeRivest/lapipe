@@ -19,8 +19,8 @@ classifiers = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/maximerivest/alpipe"
-"Issues"   = "https://github.com/maximerivest/alpipe/issues"
+"Homepage" = "https://github.com/maximerivest/lapipe"
+"Issues"   = "https://github.com/maximerivest/lapipe/issues"
 
 [tool.hatch.build.targets.wheel]
 packages = ["lapipe"]
