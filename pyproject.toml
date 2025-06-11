@@ -1,0 +1,26 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "alpipe"                     # <-- reserved on first upload
+version = "1.0.0"
+description = "Tiny value-first pipe operator with optional '_' placeholder"
+readme = "README.md"
+license = "MIT"
+authors = [{ name = "Maxime Rivest", email = "mrive052@gmail.com" }]
+requires-python = ">=3.8"
+
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Topic :: Utilities",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/maximerivest/alpipe"
+"Issues"   = "https://github.com/maximerivest/alpipe/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["lapipe"]
