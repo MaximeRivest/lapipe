@@ -30,4 +30,10 @@ jobs:
     - name: Test imports and basic functionality
       run: |
         python -c "from lapipe import pipe, _; print('✓ Import successful')"
-        python -c "from lapipe import pipe, _; def add(a,b): return a+b; result = pipe(2) | (add, 3); assert result.value == 5; print('✓ Basic functionality works')" 
+        python -c "
+        from lapipe import pipe, _
+        def add(a,b): return a+b
+        result = pipe(2) | (add, 3)
+        assert result.value == 5
+        print('✓ Basic functionality works')
+        " 
