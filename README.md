@@ -83,15 +83,17 @@ df = pd.DataFrame({
     "sales": [42, 45, 47, 44, 50, 54, 57, 60, 64, 66, 70, 74, 78, 81, 85]
 })
 
-(
+result = (
     pipe(df)
     | (pd.DataFrame.copy, _)              # keep original intact
     | (pd.DataFrame.set_index, _, "year")
-    | (pd.DataFrame.assign, growth=lambda d: d.sales.pct_change())
+    | (pd.DataFrame.assign, {"growth": lambda d: d.sales.pct_change()})
     | (pd.DataFrame.rolling, 3)           # 3-year moving mean
     | (pd.core.window.Rolling.mean, _)    # computes .mean()
-    | (pd.DataFrame.plot, _, y="sales")   # `_` is DataFrame here
 )
+
+# Plot the sales column from the result
+result.value.sales.plot()
 plt.title("3-year moving average sales")
 plt.show()
 ```
