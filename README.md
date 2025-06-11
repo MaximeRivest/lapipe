@@ -1,6 +1,6 @@
 # lapipe
 
-*A tiny, zero-dependency “value-first” pipe helper for Python &nbsp;—&nbsp; inspired by Unix pipes and F#’s `|>`, but with an optional `_` placeholder so you can drop the value exactly where you need it.*
+*A tiny, zero-dependency "value-first" pipe helper for Python &nbsp;—&nbsp; inspired by Unix pipes and F#'s `|>`, but with an optional `_` placeholder so you can drop the value exactly where you need it.*
 
 [![PyPI](https://img.shields.io/pypi/v/lapipe?color=%2337c)](https://pypi.org/project/lapipe/)
 ![Python](https://img.shields.io/badge/python-3.8%2B-blue.svg)
@@ -20,7 +20,7 @@
 
 ```bash
 pip install lapipe
-````
+```
 
 ---
 
@@ -72,7 +72,31 @@ print(out.value)
 # [400 484 576 676 784]
 ```
 
-### 2. Pandas transformation + plot
+### 2. String processing pipeline
+
+```python
+import re
+from lapipe import pipe, _
+
+# Clean and format a messy user input
+messy_input = "  Hello,    WORLD!!!   How are YOU today???  "
+
+clean_text = (
+    pipe(messy_input)
+    | str.strip                          # remove leading/trailing spaces
+    | str.lower                          # normalize to lowercase
+    | (re.sub, r'[!?]{2,}', '!', _)      # collapse multiple punctuation
+    | (re.sub, r'\s+', ' ', _)           # normalize whitespace
+    | (str.replace, _, ',', ' —')        # fancy separator
+    | str.title                          # title case
+    | (lambda x: f"✨ {x} ✨")           # add some flair
+)
+
+print(clean_text.value)
+# ✨ Hello — World! How Are You Today! ✨
+```
+
+### 3. Pandas transformation + plot
 
 ```python
 import pandas as pd, matplotlib.pyplot as plt
@@ -98,7 +122,7 @@ plt.title("3-year moving average sales")
 plt.show()
 ```
 
-### 3. Keyword placeholder
+### 4. Keyword placeholder
 
 ```python
 def greet(who, *, punct="!"):
@@ -120,7 +144,7 @@ _                  # sentinel placeholder
 Pipe.value         # access the wrapped result
 ```
 
-That’s it! No other symbols, no hidden globals.
+That's it! No other symbols, no hidden globals.
 
 ---
 
@@ -147,7 +171,7 @@ pytest
 
 ## License
 
-MIT — do what you want, just keep the copyright and don’t blame us.
+MIT — do what you want, just keep the copyright and don't blame us.
 
 ---
 
